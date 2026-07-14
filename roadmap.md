@@ -1,7 +1,7 @@
 # Cybersecurity AI Platform - Development Roadmap
 
 ## Phase 1: Foundation & Data Layer
-- [ ] Set up Docker containers
+- [x] Set up Docker containers
 - [ ] Initialize PostgreSQL database
 - [ ] Configure Alembic migrations
 - [ ] Create FastAPI project structure
