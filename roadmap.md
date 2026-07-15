@@ -2,9 +2,9 @@
 
 ## Phase 1: Foundation & Data Layer
 - [x] Set up Docker containers
-- [ ] Initialize PostgreSQL database
-- [ ] Configure Alembic migrations
-- [ ] Create FastAPI project structure
+- [x] Initialize PostgreSQL database
+- [x] Configure Alembic migrations
+- [x] Create FastAPI project structure
 
 ---
 

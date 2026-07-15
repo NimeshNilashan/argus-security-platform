@@ -1,20 +1,18 @@
-version: '3.8' #version of docker compose to be used
-
 services: # we create the containers under this
   db: # our database container
     image: postgres:15-alpine # defining the version of the postgres to be used
     container_name: argus_postgres # name of this db container
     restart: always # Automatically restarts the container if it stops or Docker restarts
-    environment: # defining the environment variables here
-      POSTGRES_USER: nimesh # db user name
-      POSTGRES_PASSWORD: argusCapstone123 # db password
-      POSTGRES_DB: argus_security_capstone # database name
+    environment:
+      POSTGRES_USER: nimesh
+      POSTGRES_PASSWORD: argusCapstone123
+      POSTGRES_DB: argus_security_capstone
     ports:
       - "5432:5432" # Maps host port 5432 to container port 5432
     volumes:
       - pg_data:/var/lib/postgresql/data # path where the database files gets stored
     healthcheck: # commands to check if postgres is running properly before running the app
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d argus_security_capstone"]
+      test: ["CMD-SHELL", "pg_isready -U nimesh -d argus_security_capstone"]
       interval: 10s
       timeout: 5s
       retries: 5

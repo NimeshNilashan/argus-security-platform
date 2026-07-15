@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from app.config import settings
 
 # 1. Create the engine that interfaces with our Postgres container
-engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True)
+engine = create_engine(str(settings.DATABASE_URL), pool_pre_ping=True)
 
 # 2. Setup the Session factory
 SessionLocal = sessionmaker(
