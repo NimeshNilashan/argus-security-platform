@@ -37,7 +37,7 @@ export default function Home() {
               </h2>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-gray-400">
                 Sentinel runs OSINT reconnaissance, port scanning, file-integrity
-                checks, and log analysis side by side — with an AI layer that
+                checks, and log analysis side by side. With an AI layer that
                 flags what actually needs a human look.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-5">
