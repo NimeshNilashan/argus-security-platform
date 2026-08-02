@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs'
 import { IBM_Plex_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -24,7 +25,14 @@ export default function RootLayout({ children }) {
           className={`${ibmPlexSans.variable} ${geistMono.variable} h-full antialiased`}
       >
       <body className="min-h-full flex flex-col">
-      {children}
+      <ClerkProvider
+          afterSignInUrl="/dashboard"
+          afterSignUpUrl="/dashboard"
+
+      >
+          <header />
+          {children}
+      </ClerkProvider>
       </body>
       </html>
   );

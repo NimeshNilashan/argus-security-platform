@@ -1,5 +1,31 @@
+'use client'
+
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
 export default function Home() {
-  return (
+    const { isLoaded, isSignedIn, user } = useUser()
+    const router = useRouter()
+
+    // 🔥 FORCE redirect when signed in
+    useEffect(() => {
+        if (isLoaded && isSignedIn) {
+            console.log('👤 User is signed in, redirecting to dashboard...')
+            router.push('/dashboard')
+        }
+    }, [isLoaded, isSignedIn, router])
+
+    // Show loading state
+    if (!isLoaded) {
+        return <div className="min-h-screen bg-black text-white flex items-center justify-center">
+            Loading...
+        </div>
+    }
+
+    return (
       <main className="min-h-screen bg-black text-white">
         <div
             className="pointer-events-none fixed inset-0 opacity-5"
@@ -19,9 +45,17 @@ export default function Home() {
 
             </span>
             </div>
-            <button className="cursor-pointer font-bold rounded font-mono text-sm text-gray-400 transition hover:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
-              [ Sign in ]
-            </button>
+              <Show when="signed-out">
+
+                  <SignUpButton>
+                    <button className="cursor-pointer font-bold rounded font-mono text-sm text-gray-400 transition hover:text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                      [ Sign in ]
+                    </button>
+                  </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                  <UserButton />
+              </Show>
           </div>
         </header>
 

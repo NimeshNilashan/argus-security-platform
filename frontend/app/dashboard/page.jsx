@@ -1,13 +1,12 @@
-import Sidebar from "@/components/Sidebar";
+import { UserButton, useUser } from '@clerk/nextjs'
 
 const NAV_ITEMS = [
-    "Dashboard",
     "OSINT",
     "Port Scanner",
     "File Integrity",
     "Log Analyzer",
     "AI Assistant",
-    "Profile",
+    <UserButton />,
 ];
 
 const STATS = [
@@ -52,7 +51,28 @@ export default function Dashboard() {
 
             {/* Sidebar */}
             <aside className="flex w-56 shrink-0 flex-col border-r border-white/10">
-                <Sidebar />
+                <div className="border-b border-white/10 px-5 py-5">
+                    <span className="font-mono text-lg font-semibold tracking-tight">ARGUS</span>
+
+                </div>
+                <nav className="flex-1 py-4">
+                    {NAV_ITEMS.map((item) => {
+                        const active = item === "Dashboard";
+                        return (
+                            <button
+                                key={item}
+                                className={
+                                    "flex w-full items-center gap-3 border-l-2 px-5 py-2.5 text-left font-mono text-xs uppercase tracking-wide transition focus:outline-none focus-visible:bg-white/5 " +
+                                    (active
+                                        ? "border-cyan-400 text-white"
+                                        : "border-transparent text-gray-500 hover:border-white/20 hover:text-gray-300")
+                                }
+                            >
+                                {item}
+                            </button>
+                        );
+                    })}
+                </nav>
             </aside>
 
             {/* Main content */}
