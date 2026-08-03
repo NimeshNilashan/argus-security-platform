@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: argus_db_container
+    environment:
+      POSTGRES_USER: nimesh
+      POSTGRES_PASSWORD: argus123
+      POSTGRES_DB: argus_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
