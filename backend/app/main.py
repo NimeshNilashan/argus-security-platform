@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.config.database import get_db
 
-from app.routers import scans,finding
+from app.routers import scans,finding, fim
 
 app = FastAPI(
     title="Argus Security Platform",
@@ -14,6 +14,7 @@ app = FastAPI(
 
 app.include_router(scans.router)
 app.include_router(finding.router)
+app.include_router(fim.router)
 
 
 @app.get("/")
