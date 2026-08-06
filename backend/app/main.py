@@ -1,7 +1,35 @@
-from fastapi import FastAPI
+# Main FastAPI application
 
-app = FastAPI()
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+
+from app.config.database import get_db
+
+from app.routers import scans,finding
+
+app = FastAPI(
+    title="Argus Security Platform",
+    version="1.0.0"
+)
+
+app.include_router(scans.router)
+app.include_router(finding.router)
+
 
 @app.get("/")
-def home():
-    return {"message": "API running successfully"}
+def root():
+    return {
+        "message": "Argus API is running"
+    }
+
+
+@app.get("/database-test")
+def database_test(
+    db: Session = Depends(get_db)
+):
+    # If this endpoint works,
+    # FastAPI successfully connected to PostgreSQL.
+
+    return {
+        "message": "Database connection successful"
+    }
