@@ -1,14 +1,12 @@
-import uuid
-
-from fastapi import APIRouter, Depends, Form
+from fastapi import APIRouter, Depends, Form, HTTPException
 from sqlalchemy.orm import Session
 
 from app.config.database import get_db
 from app.config.settings import settings
 from app.models.finding import Finding
+from app.models.user import User
 from app.services.scan_service import create_scan
 from app.modules.osint.recon import run_recon
-
 
 router = APIRouter(
     prefix="/osint",
@@ -23,9 +21,23 @@ def run_osint_recon(
     db: Session = Depends(get_db)
 ):
 
+    # user_id is the Clerk user ID.
+    # Find the corresponding Argus user.
+    user = (
+        db.query(User)
+        .filter(User.clerk_user_id == user_id)
+        .first()
+    )
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+
     scan_record = create_scan(
         db=db,
-        user_id=uuid.UUID(user_id),
+        user_id=user.id,
         module="osint",
         target=domain
     )
@@ -67,7 +79,7 @@ def run_osint_recon(
     db.commit()
 
     return {
-        "scan_id": scan_record.id,
+        "scan_id": str(scan_record.id),
         "domain": domain,
         "results": results
     }
