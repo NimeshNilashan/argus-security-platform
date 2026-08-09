@@ -22,13 +22,20 @@ def dashboard_summary(
     # Find the Argus user linked to the Clerk account.
     user = (
         db.query(User)
-        .filter(User.clerk_user_id == clerk_user_id)
+        .filter(User.clerk_user_id == user_id)
         .first()
     )
 
     if not user:
         return {
-            "error": "User not found"
+            "stats": {
+                "findings": 0,
+                "high_risk": 0,
+                "scans": 0,
+                "files": 0
+            },
+            "recent_findings": [],
+            "recent_activity": []
         }
 
     return get_dashboard_summary(
