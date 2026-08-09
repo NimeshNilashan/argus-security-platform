@@ -20,18 +20,17 @@ export default function OSINTPage() {
     setResult(null)
 
     try {
-      const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/osint/recon`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              domain: domain.trim(),
-            }),
-          }
-      )
+        const formData = new FormData()
+        formData.append('user_id', user.id)
+        formData.append('domain', domain.trim())
+
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/osint/recon`,
+            {
+                method: 'POST',
+                body: formData,
+            }
+        )
 
       const data = await response.json()
 
