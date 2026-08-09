@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     DATABASE_URL: str
     virustotal_api_key: str
+    CLERK_WEBHOOK_SIGNING_SECRET: str
 
     class Config:
         env_file = ".env"

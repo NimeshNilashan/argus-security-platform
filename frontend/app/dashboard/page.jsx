@@ -1,3 +1,5 @@
+// app/dashboard/page.jsx
+'use client'
 import { UserButton, useUser } from '@clerk/nextjs'
 
 const NAV_ITEMS = [
